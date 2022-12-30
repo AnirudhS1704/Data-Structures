@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define max 10
+
+int n;
 
 struct Queue{
         int *arr;
@@ -16,7 +17,7 @@ struct Queue createQ(int n, struct Queue *q)
 
 int isFull(int rear, int front)
 {
-        if(rear == max-1 )
+        if(rear == n-1 )
                 return 1;
         return 0;
 }
@@ -70,7 +71,6 @@ void main()
         struct Queue q;
         q.front = 0;
         q.rear = -1;
-        int n;
         printf("Enter the no. of elements of queue\n");
         scanf("%d", &n);
         q = createQ(n, &q);
