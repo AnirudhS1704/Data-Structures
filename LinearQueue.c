@@ -38,7 +38,7 @@ int deleteQ(struct Queue *q)
 {
         if(isEmpty(q->rear, q->front))
                 {
-                        printf("Queue full!\n");
+                        printf("Queue empty!\n");
                 return -10000;
                 }
 
