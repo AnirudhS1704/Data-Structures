@@ -65,6 +65,7 @@ void main()
         struct CQ cq;
         cq.front = 0;
         cq.rear = -1;
+        cq.count = 0;
         int a, ele;
         while(1)
         {
