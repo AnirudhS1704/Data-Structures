@@ -127,6 +127,74 @@ int searchList(NODE p, int ele)
         }
 }
 
+NODE insertPos(NODE p, int pos, int ele)
+{
+        if(p == NULL)
+        {
+                NODE q = getnode();
+                q->next = NULL;
+                q->data = ele;
+                return q;
+        }
+        else if(pos == 1)
+        {
+                p = insertFront(p, ele);
+                return p;
+        }
+        else{
+                NODE s = p;
+                for(int i=0; i<pos-1; i++)
+                {
+                        s = s->next;
+                        if(s == NULL)
+                        {
+                                printf("pos > sizeof list\n");
+                                p = insertRear(p, ele);
+                                return p;
+                        }
+                }
+                NODE q = getnode();
+                q->data = ele;
+                q->next = s->next;
+                s->next = q;
+                return p;
+
+        }
+}
+
+NODE deletePos(NODE p, int pos)
+{
+        if(p == NULL)
+        {
+                printf("No element to be deleted\n");
+                return p;
+        }
+        else if(pos == 1)
+        {
+                p = deleteFront(p);
+                return p;
+        }
+        else{
+                NODE prev, s;
+                s = p;
+                for(int i=0; i<pos-1; i++)
+                {
+                        prev = s;
+                        s = s->next;
+                        if(s == NULL)
+                        {
+                                printf("pos > sizeof list, deletion not possible\n");
+                                return p;
+                        }
+                        prev->next = s->next;
+                        freenode(s);
+                        return p;
+        }
+        }
+}
+
+
+
 void main()
 {
         int a, ele;
