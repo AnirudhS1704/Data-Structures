@@ -161,7 +161,7 @@ void main()
                         scanf("%d", &ele);
                         int count = searchList(p, ele);
                         printf("Element found at position %d\n", count);
-                       break;
+                        break;
                     case 6:
                         display(p);
                         break;
