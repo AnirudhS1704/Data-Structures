@@ -188,6 +188,26 @@ NODE deletePos(NODE p, int pos)
     }
 }
 
+int search(NODE p, int ele)
+{
+        NODE s = p;
+        int count = 0;
+        while(s!=NULL)
+        {
+                if(s->data == ele)
+                {
+                        count++;
+                        return count;
+                }
+                count++;
+                s=s->right;
+        }
+        if(s==NULL)
+                return -1;
+}
+
+
+
 
 void main()
 {
@@ -195,7 +215,7 @@ void main()
     NODE p;
     while (1)
     {
-        printf("Enter 1. Insert Front\n2. Delete Front\n3.Insert Rear\n4.Delete Rear\n5. Insert position\n6. Delete position\n7.Display");
+        printf("Enter 1. Insert Front\n2. Delete Front\n3.Insert Rear\n4.Delete Rear\n5. Insert position\n6. Delete position\n7.Display\n8.Search\n");
         scanf("%d", &a);
         switch (a)
         {
@@ -224,13 +244,18 @@ void main()
             scanf("%d", &ele);
             p = insertPos(p, pos, ele);
             break;
-        case 7:
-            display(p);
-            break;
-             case 6:
+        case 6:
             printf("Enter the position\n");
             scanf("%d", &pos);
             p = deletePos(p, pos);
+            break;
+        case 7:
+            display(p);
+            break;
+        
+        case 8: printf("Enter the element\n");
+            scanf("%d", &ele);
+            printf("Searched element present at %d\n", search(p, ele));
             break;
         }
     }
