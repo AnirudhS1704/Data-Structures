@@ -124,6 +124,7 @@ void main()
 }
 
 
+//Output
 /*
 Enter 1. Insert
 2. Inorder
