@@ -4,117 +4,113 @@
 struct node
 {
     int data;
-    struct node *llink;
-    struct node *rlink;
+    struct node *right;
+    struct node *left;
 };
 
 typedef struct node *NODE;
 
-NODE getnode()
+NODE getnode(int ele)
 {
-    NODE temp = (NODE)malloc(sizeof(struct node));
-    temp->llink = NULL;
-    temp->rlink = NULL;
-    return temp;
+    NODE p = (NODE)malloc(sizeof(NODE));
+    p->data = ele;
+    p->right = NULL;
+    p->left = NULL;
+    return p;
 }
 
-NODE insert(NODE root, int ele)
+NODE insert(NODE p, int ele)
 {
-    NODE temp = getnode();
-    temp->data = ele;
-    if (root == NULL)
-        return temp;
-    else
+    NODE r = getnode(ele);
+    NODE curr = p;
+    if (p == NULL)
     {
-        NODE p = root;
-        while (1)
+        return r;
+    }
+    while (1)
+    {
+        if (ele > curr->data)
         {
-            if (ele > p->data)
+            if (curr->right != NULL)
             {
-                if (p->rlink == NULL)
-                {
-                    p->rlink = temp;
-                    break;
-                }
-                p = p->rlink;
+                curr = curr->right;
             }
             else
             {
-                if (p->llink == NULL)
-                {
-                    p->llink = temp;
-                    break;
-                }
-                p = p->llink;
+                curr->right = r;
+                break;
             }
         }
-        return root;
+        else
+        {
+            if (curr->left != NULL)
+            {
+                curr = curr->left;
+            }
+            else
+            {
+                curr->left = r;
+                break;
+            }
+        }
     }
+    return p;
 }
 
-void inorder(NODE root)
+void inorder(NODE p)
 {
-    if (root == NULL)
-    {
-
+    NODE q = p;
+    if (q == NULL)
         return;
-    }
-    else
-    {
-        inorder(root->llink);
-        printf("%d\t", root->data);
-        inorder(root->rlink);
-    }
+    inorder(q->left);
+    printf("%d\t", q->data);
+    inorder(p->right);
 }
-void preorder(NODE root)
-{
-    if (root == NULL)
-    {
 
-        return;
-    }
-    printf("%d\t", root->data);
-    preorder(root->llink);
-    preorder(root->rlink);
-}
-void postorder(NODE root)
+void preorder(NODE p)
 {
-    if (root == NULL)
-    {
+    NODE q = p;
+    if (q == NULL)
         return;
-    }
-    postorder(root->llink);
-    postorder(root->rlink);
-    printf("%d\t", root->data);
+    printf("%d\t", q->data);
+    preorder(q->left);
+    preorder(q->right);
+}
+
+void postorder(NODE p)
+{
+    NODE q = p;
+    if (q == NULL)
+        return;
+    postorder(q->left);
+    postorder(q->right);
+    printf("%d\t", q->data);
 }
 
 void main()
 {
-    int a, ele;
-    NODE root;
+    NODE p;
+    int ele, n;
     printf("Enter 1. Insert\n2. Inorder\n3. Preorder\n4. Postorder\n");
     while (1)
     {
         printf("->\t");
-        scanf("%d", &a);
-        switch (a)
+        scanf("%d", &n);
+        switch (n)
         {
         case 1:
-            printf("Enter the element\n");
+            printf("Enter number to insert\n");
             scanf("%d", &ele);
-            root = insert(root, ele);
+            p = insert(p, ele);
             break;
         case 2:
-            inorder(root);
-            printf("\n");
+            inorder(p);
             break;
         case 3:
-            preorder(root);
-            printf("\n");
+            preorder(p);
             break;
         case 4:
-            postorder(root);
-            printf("\n");
+            postorder(p);
             break;
 
         default:
@@ -122,39 +118,3 @@ void main()
         }
     }
 }
-
-
-//Output
-/*
-Enter 1. Insert
-2. Inorder
-3. Preorder
-4. Postorder
-->	1
-Enter the element
-9
-->	1
-Enter the element
-6
-->	1
-Enter the element
-10
-->	1
-Enter the element
-2
-->	1
-Enter the element
-11
-->	1
-Enter the element
-5
-->	1
-Enter the element
-4
-->	2
-2	4	5	6	9	10	11	
-->	3
-9	6	2	5	4	10	11	
-->	4
-4	5	2	6	11	10	9	
-->	*/
