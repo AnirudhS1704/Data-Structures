@@ -26,10 +26,17 @@ NODE insertFront(NODE p, int ele)
 {
     NODE q = getnode();
     q->data = ele;
-    q->right = p;
-    q->left = NULL;
-    p = q;
-    return p;
+    q->next = p;
+    if (p == NULL)
+    {
+        q->prev = NULL;
+    }
+    else
+    {
+        p->prev = q;
+    }
+
+    return q;
 }
 
 NODE deleteFront(NODE p)
